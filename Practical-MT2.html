@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Card</title>
+    <style>
+        /* CSS goes here - see below */
+    </style>
+</head>
+<body>
+    <div class="product-card">
+        <div class="product-image">
+            <img src="https://via.placeholder.com/300x300/4A90E2/FFFFFF?text=Shoes" alt="Sneakers">
+            <span class="sale-badge">Sale</span>
+        </div>
+        <div class="product-details">
+            <h2>Comfort Sneakers</h2>
+            <div class="rating">
+                <span class="stars">★★★★☆</span>
+                <span class="reviews">127 reviews</span>
+            </div>
+            <div class="price">
+                <span class="now">$59</span>
+                <span class="old">$89</span>
+            </div>
+            <p>Super comfy sneakers with memory foam insoles. Perfect for daily wear.</p>
+            <div class="buttons">
+                <button class="buy">Add to Cart</button>
+                <button class="heart">♡</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+body {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #f8f9fa;
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 1rem;
+}
+
+.product-card {
+    width: 100%;
+    max-width: 340px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.product-image {
+    position: relative;
+    height: 240px;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.sale-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: #e74c3c;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.product-details {
+    padding: 24px 20px;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    color: #7f8c8d;
+    font-size: 14px;
+}
+
+.stars {
+    color: #f39c12;
+    font-size: 16px;
+}
+
+.price {
+    margin-bottom: 12px;
+}
+
+.now {
+    font-size: 28px;
+    font-weight: bold;
+    color: #27ae60;
+    margin-right: 12px;
+}
+
+.old {
+    text-decoration: line-through;
+    color: #bdc3c7;
+    font-size: 18px;
+}
+
+.product-details p {
+    color: #7f8c8d;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    font-size: 15px;
+}
