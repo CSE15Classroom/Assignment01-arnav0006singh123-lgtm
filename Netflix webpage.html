@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Netflix Clone</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: #141414;
+    color: white;
+}
+
+/* Navbar */
+.navbar {
+    background: #000;
+    padding: 15px 40px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.navbar img {
+    height: 35px;
+}
+
+.search-box {
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    width: 250px;
+}
+
+/* Section */
+.section {
+    padding: 30px 40px;
+}
+
+.section h2 {
+    margin-bottom: 15px;
+}
+
+/* Movie Row */
+.movie-row {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+}
+
+.movie-row::-webkit-scrollbar {
+    height: 8px;
+}
+.movie-row::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 4px;
+}
+
+/* Movie Card */
+.movie {
+    position: relative;
+    min-width: 180px;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.movie img {
+    width: 100%;
+    border-radius: 6px;
+}
+
+/* Hover Effect */
+.movie:hover {
+    transform: scale(1.15);
+    z-index: 2;
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s;
+    border-radius: 6px;
+}
+
+.movie:hover .overlay {
+    opacity: 1;
+}
+
+.play-btn {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.title {
+    font-size: 14px;
+    text-align: center;
+    padding: 0 5px;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    width: 80%;
+    max-width: 800px;
+    position: relative;
+}
+
+.modal iframe {
+    width: 100%;
+    height: 450px;
+}
+
+.close {
+    position: absolute;
+    top: -30px;
+    right: 0;
+    font-size: 30px;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg">
+    <input type="text" class="search-box" placeholder="Search movies or shows..." onkeyup="searchMovies()">
+</div>
+
+<!-- Movies -->
+<div class="section">
+<h2>Popular Movies</h2>
+<div class="movie-row" id="movies">
+
+<div class="movie" data-title="Extraction" onclick="openTrailer('L6P3nI6VnlY')">
+    <img src="https://image.tmdb.org/t/p/w500/6j5LnwXuYkG5rH6O0s4ZQj7oYzP.jpg">
+    <div class="overlay">
+        <div class="play-btn">▶</div>
+        <div class="title">Extraction</div>
+    </div>
+</div>
+
+<div class="movie" data-title="Red Notice" onclick="openTrailer('Pj0wz7zu3Ms')">
+    <img src="https://image.tmdb.org/t/p/w500/lAXONuqg41NwUMuzMiFvicDET9Y.jpg">
+    <div class="overlay">
+        <div class="play-btn">▶</div>
+        <div class="title">Red Notice</div>
+    </div>
+</div>
+
+<div class="movie" data-title="Bird Box" onclick="openTrailer('o2AsIXSh2xo')">
+    <img src="https://image.tmdb.org/t/p/w500/rGfGfgL2pEPCfhIvqHXieXFn7gp.jpg">
+    <div class="overlay">
+        <div class="play-btn">▶</div>
+        <div class="title">Bird Box</div>
+    </div>
+</div>
+
+</div>
+</div>
+
+<!-- TV Shows -->
+<div class="section">
+<h2>Netflix TV Shows</h2>
+<div class="movie-row" id="shows">
+
+<div class="movie" data-title="Stranger Things" onclick="openTrailer('b9EkMc79ZSU')">
+    <img src="https://image.tmdb.org/t/p/w500/x2LSRK2Cm7MZhjluni1msVJ3wDF.jpg">
+    <div class="overlay">
+        <div class="play-btn">▶</div>
+        <div class="title">Stranger Things</div>
+    </div>
+</div>
+
+<div class="movie" data-title="Money Heist" onclick="openTrailer('_InqQJRqGW4')">
+    <img src="https://image.tmdb.org/t/p/w500/reEMJA1uzscCbkpeRJeTT2bjqUp.jpg">
+    <div class="overlay">
+        <div class="play-btn">▶</div>
+        <div class="title">Money Heist</div>
+    </div>
+</div>
+
+<div class="movie" data-title="Squid Game" onclick="openTrailer('oqxAJKy0ii4')">
+    <img src="https://image.tmdb.org/t/p/w500/dDlEmu3EZ0Pgg93K2SVNLCjCSvE.jpg">
+    <div class="overlay">
+        <div class="play-btn">▶</div>
+        <div class="title">Squid Game</div>
+    </div>
+</div>
+
+</div>
+</div>
+
+<!-- Trailer Modal -->
+<div class="modal" id="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeTrailer()">✖</span>
+        <iframe id="trailer" src="" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>
+
+<script>
+function openTrailer(videoId) {
+    document.getElementById("modal").style.display = "flex";
+    document.getElementById("trailer").src =
+        "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
+}
+
+function closeTrailer() {
+    document.getElementById("modal").style.display = "none";
+    document.getElementById("trailer").src = "";
+}
+
+function searchMovies() {
+    let input = document.querySelector(".search-box").value.toLowerCase();
+    let movies = document.querySelectorAll(".movie");
+
+    movies.forEach(movie => {
+        let title = movie.getAttribute("data-title").toLowerCase();
+        movie.style.display = title.includes(input) ? "block" : "none";
+    });
+}
+</script>
+
+</body>
+</html>
